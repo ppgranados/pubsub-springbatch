@@ -22,13 +22,18 @@ public class OrderProcessor implements ItemProcessor<Order, OrderEntity> {
         final OrderEntity orderEntity = OrderEntity.builder()
                 .price(item.getPrice())
                 .customer(extractCustomer(item.getCustomer()))
-                .tacos(
-                        Optional.ofNullable(item.getTacos()).orElseGet(Collections::emptyList).stream().map(
-                                taco -> TacoEntity.builder().type(taco.getType()).build()
-                        ).collect(Collectors.toList())
-                )
                 .build();
 
+        orderEntity.addTacos(
+                Optional.ofNullable(item.getTacos())
+                        .orElseGet(Collections::emptyList)
+                        .stream()
+                        .map(taco -> TacoEntity.builder()
+                                .type(taco.getType())
+                                .order(orderEntity)
+                                .build()
+                        ).collect(Collectors.toList())
+        );
         return orderEntity;
     }
 

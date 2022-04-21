@@ -20,12 +20,16 @@ public class OrderEntity {
 
     private Double price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "order_id")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TacoEntity> tacos;
+
+    public void addTacos(final List<TacoEntity> tacos) {
+        this.setTacos(tacos);
+    }
 
     @Override
     public String toString() {

@@ -18,6 +18,10 @@ public class TacoEntity {
 
     private String type;
 
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private OrderEntity order;
+
     @Override
     public String toString() {
         return "TacoEntity{" +
