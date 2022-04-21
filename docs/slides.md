@@ -119,5 +119,5 @@ Resources:
 </font>
 
 <p align="center">
-<img src="images/dockerdeepdive_qr_code.png" />
+<img src="images/qr.png" />
 </p>
